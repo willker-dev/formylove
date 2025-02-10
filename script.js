@@ -24,17 +24,41 @@ function começarMensagem() {
 
 function escreverFrase(mensagem) {
   if (fraseIndex < frases.length) {
+    // Cria um novo elemento para a frase atual
+    const divFrase = document.createElement("div");
+    divFrase.classList.add("frase");
+    mensagem.appendChild(divFrase);
+    
     let fraseAtual = frases[fraseIndex];
     let i = 0;
+    
+    // Digitação da frase
     let intervalo = setInterval(() => {
-      mensagem.innerHTML += fraseAtual[i];
+      divFrase.innerHTML += fraseAtual[i];
       i++;
       if (i === fraseAtual.length) {
         clearInterval(intervalo);
         fraseIndex++;
+
+        // Após um tempo, remove a frase anterior e continua com a próxima
         setTimeout(() => {
-          escreverFrase(mensagem);
-        }, 1500);  // Tempo entre as frases
+          if (fraseIndex < frases.length) {
+            // Faz as frases anteriores desaparecerem
+            let frasesAnteriores = mensagem.getElementsByClassName("frase");
+            if (frasesAnteriores.length > 5) {
+              // Faz a frase que está mais no topo desaparecer
+              let primeiraFrase = frasesAnteriores[0];
+              primeiraFrase.style.transition = "opacity 1s ease-out";
+              primeiraFrase.style.opacity = 0;
+
+              // Depois que a animação de desaparecimento terminar, remove a frase do DOM
+              setTimeout(() => {
+                primeiraFrase.remove();
+              }, 1000); // Tempo da animação de fade-out
+            }
+            escreverFrase(mensagem); // Chama novamente para escrever a próxima frase
+          }
+        }, 1500); // Tempo entre as frases
       }
     }, 80);  // Velocidade da digitação
   }
