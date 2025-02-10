@@ -11,13 +11,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Alterado de height para min-height */
   text-align: center;
-  overflow: hidden;
   background-image: url('https://via.placeholder.com/1600x900/111111/ff6347?text='); /* Placeholder background */
   background-size: cover;
   background-position: center;
   animation: background-fade 3s infinite alternate;
+  overflow-y: auto; /* Permite a rolagem vertical */
 }
 
 @keyframes background-fade {
