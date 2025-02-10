@@ -13,8 +13,12 @@ let fraseIndex = 0;
 
 function começarMensagem() {
   const mensagem = document.getElementById("mensagem");
-  mensagem.innerHTML = '';  // Limpa a mensagem antes de começar
-  mensagem.style.opacity = 1;
+  const botao = document.getElementById("btnRevelar");
+
+  // Esconde o botão
+  botao.classList.add('hidden');
+
+  mensagem.style.opacity = 1; // Revela a mensagem
   escreverFrase(mensagem);
 }
 
